@@ -15,7 +15,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-22C55E?style=for-the-badge)](LICENSE)
 [![Telegram](https://img.shields.io/badge/Telegram-Channel-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/codeonvibes)
 
-[What It Does](#what-it-does) · [6 Layers](#6-layers-42-checks) · [Install](#installation) · [Usage](#usage) · [How It Works](#how-it-works) · [Example Output](#example-output) · [Multi-Stack](#multi-stack-support)
+[What It Does](#what-it-does) · [6 Layers](#6-layers-42-checks) · [Install](#installation) · [Usage](#usage) · [How It Works](#how-it-works) · [Example Output](#example-output) · [FAQ](#faq) · [Contributing](#contributing)
 
 Just `.md` files — install in 5 seconds:
 
@@ -176,6 +176,8 @@ curl -sSL https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/
 
 The installer downloads 9 `.md` files into `.claude/skills/doctor/` and verifies each one.
 
+> Want to inspect the script first? [View install.sh on GitHub](https://github.com/SomeStay07/claude-doctor-skill/blob/main/install.sh) — it only creates a directory and downloads `.md` files.
+
 ### Option B: Manual
 
 ```bash
@@ -201,7 +203,20 @@ ls .claude/skills/doctor/SKILL.md && echo "Doctor installed"
 
 That's it. No build step, no configuration. Claude Code reads `.claude/skills/` automatically — the `/doctor` command is ready to use.
 
-> **Requirements:** [Claude Code](https://docs.anthropic.com/en/docs/claude-code/) CLI installed and a project directory with source code.
+### Uninstall
+
+```bash
+rm -rf .claude/skills/doctor/   # That's it. No residual files, no config changes.
+```
+
+### Requirements
+
+| Requirement | Details |
+|:------------|:--------|
+| Claude Code | Any version with skill support (any plan) |
+| OS | macOS, Linux, WSL (Windows via WSL) |
+| Git | Recommended — some checks skip without it |
+| Internet | Only needed for installation |
 
 ## Usage
 
@@ -392,6 +407,98 @@ One skill. No build step. No dependencies. Install and use.
 | Context overflow | Too many files to check | Use `/doctor layer <N>` — audit layers individually |
 | False positive | Rule doesn't match your setup | Say "this is intentional" — Doctor skips it |
 | No output | Older Claude Code version | Run `claude --version` and update to latest |
+
+## FAQ
+
+<details>
+<summary><b>Does Doctor modify my code?</b></summary>
+<br>
+
+`/doctor scan` is read-only — no file changes. `/doctor fix` proposes changes and asks "Fix all at once or one by one?" before touching anything. You approve every change.
+</details>
+
+<details>
+<summary><b>Does it send my code anywhere?</b></summary>
+<br>
+
+No. Doctor is just `.md` files that run locally inside Claude Code. No external API calls, no telemetry, no data collection. Your code never leaves your machine.
+</details>
+
+<details>
+<summary><b>Will it conflict with my existing pre-commit hooks?</b></summary>
+<br>
+
+No. Doctor detects existing hooks and won't overwrite them. If you already have a pre-commit setup, it marks that check as passed and moves on.
+</details>
+
+<details>
+<summary><b>Does it work with monorepos?</b></summary>
+<br>
+
+Yes. Doctor scans from the current working directory. In a monorepo, run it from the root or from a specific package directory — it adapts to whatever it finds.
+</details>
+
+<details>
+<summary><b>Does it work with Cursor / Windsurf / other AI editors?</b></summary>
+<br>
+
+Doctor is designed for [Claude Code](https://docs.anthropic.com/en/docs/claude-code/) CLI. Other editors that support `.claude/skills/` may work, but are not tested.
+</details>
+
+<details>
+<summary><b>Can I add my own checks?</b></summary>
+<br>
+
+Yes — edit the layer `.md` files in `.claude/skills/doctor/layers/`. Each check is just a markdown section with a description and verification command. See [Contributing](#contributing) below.
+</details>
+
+<details>
+<summary><b>How do I update to a newer version?</b></summary>
+<br>
+
+Run the install command again — it safely overwrites existing files:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/install.sh | bash
+```
+</details>
+
+## Contributing
+
+Doctor is just `.md` files — contributing is straightforward:
+
+1. Fork this repo
+2. Edit the relevant file:
+   - **Add a check** → edit the layer file in `layers/` (e.g., `SECURITY.md`) and update `CHECKLIST.md`
+   - **Add a false positive rule** → edit `SKILL.md`, section "НЕ отмечай как проблему"
+   - **Add a new stack** → edit `layers/FOUNDATION.md` (detection) and `layers/QUALITY.md` (linter/formatter)
+   - **Fix a bug** → edit `SKILL.md` or the relevant layer file
+3. Test by placing files in your project's `.claude/skills/doctor/` and running `/doctor scan`
+4. Submit a PR with a description of what changed and why
+
+### File Roles
+
+| File | What to edit for |
+|:-----|:-----------------|
+| `SKILL.md` | Core behavior, phases, guardrails, false positive rules |
+| `CHECKLIST.md` | Check index (names + layer assignments) |
+| `layers/SECURITY.md` | Security checks (layer 0) |
+| `layers/FOUNDATION.md` | Foundation checks + stack detection (layer 1) |
+| `layers/QUALITY.md` | Quality gate checks (layer 2) |
+| `layers/QUALITY-EXTRA.md` | Advanced quality checks (layer 2) |
+| `layers/INTELLIGENCE.md` | Agent + domain rule checks (layer 3) |
+| `layers/CONTEXT.md` | MCP + memory checks (layer 4) |
+| `layers/DX.md` | Developer experience checks (layer 5) |
+
+## Roadmap
+
+- [ ] Custom check authoring (user-defined checks via `.claude/doctor-checks/`)
+- [ ] GitHub Action integration (run Doctor in CI, fail on Critical findings)
+- [ ] Supply chain security checks (SBOM, dependency provenance)
+- [ ] Auto-update mechanism (check for newer version on install)
+- [ ] More stacks: Zig, Gleam, Nim, OCaml
+
+Have an idea? [Open an issue](https://github.com/SomeStay07/claude-doctor-skill/issues) or submit a PR.
 
 ## See Also
 
