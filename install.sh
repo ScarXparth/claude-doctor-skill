@@ -11,12 +11,12 @@ NC='\033[0m' # No Color
 
 REPO="https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main"
 DIR=".claude/skills/doctor"
-VERSION="1.2.0"
+VERSION="2.0.0"
 
 # Header
 echo ""
 echo -e "${CYAN}${BOLD}  Doctor Skill Installer v${VERSION}${NC}"
-echo -e "${CYAN}  42 checks across 6 layers${NC}"
+echo -e "${CYAN}  42 checks across 6 layers — adaptive scoring${NC}"
 echo ""
 
 # Check if already installed
@@ -45,7 +45,7 @@ done
 
 # Download layer files
 echo -e "  Downloading layer details..."
-for layer in SECURITY FOUNDATION QUALITY QUALITY-EXTRA INTELLIGENCE CONTEXT DX; do
+for layer in SECURITY FOUNDATION QUALITY QUALITY-EXTRA INTELLIGENCE CONTEXT DX MATURITY; do
   if curl -sSL "$REPO/layers/$layer.md" -o "$DIR/layers/$layer.md" 2>/dev/null; then
     echo -e "    ${GREEN}+${NC} layers/$layer.md"
   else
@@ -62,7 +62,7 @@ for f in "$DIR/SKILL.md" "$DIR/CHECKLIST.md" \
          "$DIR/layers/SECURITY.md" "$DIR/layers/FOUNDATION.md" \
          "$DIR/layers/QUALITY.md" "$DIR/layers/QUALITY-EXTRA.md" \
          "$DIR/layers/INTELLIGENCE.md" "$DIR/layers/CONTEXT.md" \
-         "$DIR/layers/DX.md"; do
+         "$DIR/layers/DX.md" "$DIR/layers/MATURITY.md"; do
   if [ -f "$f" ] && [ -s "$f" ]; then
     file_count=$((file_count + 1))
   else
@@ -70,10 +70,10 @@ for f in "$DIR/SKILL.md" "$DIR/CHECKLIST.md" \
   fi
 done
 
-if [ "$file_count" -eq 9 ]; then
-  echo -e "    ${GREEN}${BOLD}All 9 files verified${NC}"
+if [ "$file_count" -eq 10 ]; then
+  echo -e "    ${GREEN}${BOLD}All 10 files verified${NC}"
 else
-  echo -e "    ${RED}${BOLD}Only $file_count/9 files installed${NC}"
+  echo -e "    ${RED}${BOLD}Only $file_count/10 files installed${NC}"
   exit 1
 fi
 
@@ -82,7 +82,8 @@ echo ""
 echo -e "  ${GREEN}${BOLD}Doctor installed to ${DIR}/${NC}"
 echo ""
 echo -e "  ${BOLD}Usage:${NC}"
-echo -e "    ${CYAN}/doctor${NC}              Full audit"
+echo -e "    ${CYAN}/doctor${NC}              Full audit (adaptive scoring)"
+echo -e "    ${CYAN}/doctor quick${NC}        TOP-3 priorities (30 seconds)"
 echo -e "    ${CYAN}/doctor scan${NC}         Diagnose only"
 echo -e "    ${CYAN}/doctor fix${NC}          Apply fixes"
 echo -e "    ${CYAN}/doctor layer 0${NC}      Security audit"
