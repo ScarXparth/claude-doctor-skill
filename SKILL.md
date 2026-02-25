@@ -101,7 +101,7 @@ API:           [напр. OpenAI, Stripe, S3]
 
 🟠 chmod 600 .env .mcp.json activity_accounts.yaml
    Сейчас 644 — любой юзер/процесс на машине прочитает секреты
-   → https://github.com/moghtech/komodo/issues/1056
+   → https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html
 
 🟠 Добавить gitleaks job в ci.yml
    --no-verify обходит pre-commit → секрет утечёт в remote
@@ -149,13 +149,13 @@ API:           [напр. OpenAI, Stripe, S3]
 ЗДОРОВЬЕ ПРОЕКТА
 =================
 🔍 Безопасность:   8/11 — ⚠️ permissions, CI scan, .gitignore
-🔍 Фундамент:      5/5
+🔍 Фундамент:      6/6
 🔍 Качество кода:  9/11 — ⚠️ pre-push хук, coverage
 🔍 Интеллект:      1/2  — ❌ domain rules
 🔍 Контекст:       4/5  — ⚠️ episodic memory
 🔍 DX:             6/7  — ❌ smoke tests
 
-Итого: 33/42 (79%) — ХОРОШО
+Итого: 34/42 (81%) — ХОРОШО
 ```
 
 Пороги оценки: 90%+ = ОТЛИЧНО, 70-89% = ХОРОШО, 50-69% = СРЕДНЕ, <50% = ПЛОХО
@@ -243,4 +243,3 @@ API:           [напр. OpenAI, Stripe, S3]
 - [pre-commit.com](https://pre-commit.com/) — фреймворк git hooks
 - [gitleaks](https://github.com/gitleaks/gitleaks) — сканирование секретов
 
-<!-- modular-boundary: если этот файл превысит 400 строк, вынести Error Recovery и False Positives в отдельный GUARDRAILS.md -->

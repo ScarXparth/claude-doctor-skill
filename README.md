@@ -102,7 +102,7 @@ Layers are ordered by priority — you can't work on DX if Security is broken:
 | Layer | Name | Checks | What It Covers |
 |:------|:-----|:------:|:---------------|
 | 0 | **Security** | 11 | Secrets in git, SAST, .gitignore, .env permissions, Docker security, client-side keys, incident response |
-| 1 | **Foundation** | 5 | CLAUDE.md, dependency manifest, build scripts, project structure, dep freshness |
+| 1 | **Foundation** | 6 | CLAUDE.md, README.md, dependency manifest, build scripts, project structure, dep freshness |
 | 2 | **Quality Gates** | 11 | Linter, PostToolUse/PreToolUse hooks, pre-commit, CI, error handling, types, coverage |
 | 3 | **Intelligence** | 2 | Agent trio (code-reviewer, debugger, architect), domain rules with `paths:` |
 | 4 | **Context** | 5 | MCP servers, plugins (context7, episodic-memory), memory files, SessionStart hook |

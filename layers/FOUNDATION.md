@@ -505,3 +505,58 @@ fi
 ```
 
 > https://www.qodo.ai/blog/technical-debt/
+
+---
+
+## 1f. README.md — документация для людей
+
+CLAUDE.md — инструкции для Claude. README.md — первое, что видит человек: коллега, контрибьютор, будущий ты через 6 месяцев.
+
+- [ ] **README.md существует** — в корне проекта
+- [ ] **Есть описание** — что проект делает (не как устроен внутри)
+- [ ] **Есть инструкция запуска** — Quick Start или Getting Started (для людей, не для Claude)
+- [ ] **Нет устаревшей информации** — команды из README работают
+
+### Команды проверки
+
+```bash
+echo "=== README.md ==="
+if [ -f README.md ]; then
+  lines=$(wc -l < README.md | tr -d ' ')
+  echo "  ✅ README.md exists ($lines lines)"
+
+  # Check for essential sections:
+  has_desc=false
+  has_start=false
+  grep -qiE '^#+.*\b(about|описание|what|overview)\b' README.md 2>/dev/null && has_desc=true
+  # Also count first paragraph as description:
+  first_para=$(head -10 README.md | grep -cv '^#\|^$\|^\[')
+  [ "$first_para" -gt 0 ] && has_desc=true
+
+  grep -qiE '^#+.*(start|install|setup|usage|запуск|установка)' README.md 2>/dev/null && has_start=true
+
+  [ "$has_desc" = true ] && echo "  ✅ Has description" || echo "  ⚠️ No project description"
+  [ "$has_start" = true ] && echo "  ✅ Has getting started / install" || echo "  ⚠️ No getting started section"
+
+  # Minimal README check:
+  if [ "$lines" -lt 5 ]; then
+    echo "  🟠 Only $lines lines — слишком короткий, добавь описание и Quick Start"
+  fi
+else
+  echo "  ⚠️ No README.md — новый человек не поймёт что это за проект"
+  echo "     → Создай README.md с: описание + Quick Start + инструкция запуска"
+fi
+```
+
+### Зачем README если есть CLAUDE.md
+
+| | CLAUDE.md | README.md |
+|---|-----------|-----------|
+| Для кого | Claude (AI-ассистент) | Люди (коллеги, контрибьюторы) |
+| Содержимое | Критические правила, architecture, gotchas | Что проект делает, как запустить |
+| Формат | Императивные инструкции | Понятное описание |
+| Размер | < 300 строк (компактный) | Любой (может быть длинным) |
+
+**CLAUDE.md НЕ заменяет README**. Новый контрибьютор не будет читать CLAUDE.md чтобы понять что проект делает.
+
+> https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes

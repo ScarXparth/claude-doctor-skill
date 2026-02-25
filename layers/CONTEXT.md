@@ -107,9 +107,9 @@ fi
 |-----------|--------|-------------|-----------|
 | 🔴 Обязательно | **postgres** | Проект с БД | `npx -y @modelcontextprotocol/server-postgres $DATABASE_URL` |
 | 🟠 Важно | **serena** | Кодовая база >20 файлов | `uvx --from git+...serena start-mcp-server` |
-| 🔵 Приятно | **github** | Работа с issues/PRs | `npx -y @modelcontextprotocol/server-github` |
+| 🔵 Опционально | **github** | Работа с issues/PRs (если `gh` CLI неудобен) | `npx -y @modelcontextprotocol/server-github` |
 
-> **tavily/brave НЕ нужен** — Claude Code имеет встроенные WebSearch + WebFetch (бесплатно, без ключа). Tavily/Brave MCP полезен только при сборке агентов через Claude Agent SDK, где встроенного поиска нет.
+> **tavily/brave НЕ нужен в Claude Code** — встроенные WebSearch + WebFetch работают бесплатно, без ключа. Tavily/Brave MCP полезен только при сборке агентов через Claude Agent SDK, где встроенного поиска нет. Если Doctor находит tavily/brave в `.mcp.json` — это 🔵 информация, не ошибка.
 
 ### Безопасность: ключи в `.mcp.json`
 

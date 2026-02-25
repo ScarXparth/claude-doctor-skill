@@ -34,12 +34,13 @@
 
 Слой 0 = не навредить. Слой 1 = Claude и разработчик могут продуктивно работать.
 
-**Краткая сводка** (5 проверок):
+**Краткая сводка** (6 проверок):
 - [ ] CLAUDE.md — существует, < 300 строк, есть Quick Start + Architecture + Critical Rules + Known Issues, команды работают
 - [ ] Файл зависимостей — `requirements.txt` / `package.json` / `Cargo.toml` / `go.mod` существует и не пустой (20 стеков)
 - [ ] Скрипты сборки — Makefile / package.json / justfile с: test, lint, format, run, clean, help
 - [ ] Структура проекта — нет mega-файлов >500 строк, код в папках, entry point понятен
 - [ ] Актуальность зависимостей — нет критически устаревших зависимостей, lock file существует
+- [ ] README.md — существует, описывает проект, есть Quick Start для людей (не путать с CLAUDE.md)
 
 **Детали с командами проверки и примерами**: [FOUNDATION.md](layers/FOUNDATION.md)
 
