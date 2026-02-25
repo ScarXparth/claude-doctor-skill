@@ -13,7 +13,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-22C55E?style=for-the-badge)](LICENSE)
 [![Telegram](https://img.shields.io/badge/Telegram-Channel-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/codeonvibes)
 
-[What It Does](#what-it-does) · [6 Layers, 42 Checks](#6-layers-42-checks) · [Installation](#installation) · [Usage](#usage) · [How It Works](#how-it-works) · [Multi-Stack](#multi-stack-support)
+[What It Does](#what-it-does) · [6 Layers](#6-layers-42-checks) · [Install](#installation) · [Usage](#usage) · [How It Works](#how-it-works) · [Example Output](#example-output) · [Multi-Stack](#multi-stack-support)
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/install.sh | bash
@@ -32,6 +32,7 @@ You set up Claude Code in a new project and start coding. Everything seems fine 
 - No pre-commit hooks catch broken code before push
 - No CI runs tests automatically
 - Claude has no memory of past decisions across sessions
+- No domain rules — Claude makes the same mistakes over and over
 
 You don't know what you don't know. And fixing these gaps manually takes hours of research.
 
@@ -41,7 +42,7 @@ You don't know what you don't know. And fixing these gaps manually takes hours o
 
 > **What's a Claude Code skill?** A skill is a `.md` file in `.claude/skills/` that gives Claude Code specialized behavior for a specific task. No plugins, no API keys — just text files with instructions. [Learn more](https://docs.anthropic.com/en/docs/claude-code/)
 
-Every finding explains **WHY** it matters, with a source link.
+Every finding is **project-specific** (not a generic template) and explains **WHY** it matters, with a source link.
 
 ### `/doctor scan` — Diagnose
 
@@ -66,12 +67,15 @@ Every finding explains **WHY** it matters, with a source link.
 ## At a Glance
 
 - 42 checks across 6 security & automation layers
-- Auto-discovers your stack (20+ languages/frameworks)
-- Every finding has severity + WHY + source link
+- Auto-discovers your stack (20+ languages/frameworks) before any checks
+- Every finding has severity + WHY + source link — no vague advice
 - Applies project-specific fixes (not generic templates)
-- Built-in false positive filtering
+- Built-in false positive filtering (14 rules — won't nag about irrelevant things)
+- Self-validates findings before output (no inflated severity, no duplicates)
+- Incident response playbook for secret leaks (9-step recovery plan)
+- Graceful degradation — handles missing git, no tests, context overflow
 - Zero dependencies, zero config — just `.md` files
-- Bilingual: English and Russian
+- Bilingual: English and Russian (auto-detects your language)
 
 | Feature | Doctor | [memory-skill](https://github.com/SomeStay07/claude-memory-skill) | [code-reviewer](https://github.com/SomeStay07/code-review-agent) |
 |:--------|:------:|:------------:|:---------------:|
@@ -79,22 +83,82 @@ Every finding explains **WHY** it matters, with a source link.
 | Layers | **6** | 1 | 1 |
 | Auto-discovery (DCI) | **Yes** | Yes | No |
 | Error recovery | **Yes** | No | Yes |
-| Self-check | **Yes** | No | Yes |
-| False positives list | **Yes** | No | Yes |
+| Self-check before output | **Yes** | No | Yes |
+| False positive filtering | **14 rules** | No | Yes |
+| Incident response | **9-step plan** | No | No |
 | Multi-stack | **20+** | No | TypeScript/React |
 | Security audit | **11 checks** | No | Partial |
+| Scoring & grading | **Yes** | No | No |
 | One-line install | **Yes** | Yes | Yes |
 
 ## 6 Layers, 42 Checks
 
+Layers are ordered by priority — you can't work on DX if Security is broken:
+
 | Layer | Name | Checks | What It Covers |
 |:------|:-----|:------:|:---------------|
-| 0 | **Security** | 11 | Secrets in git, SAST, .gitignore, .env permissions, Docker security, client-side keys |
+| 0 | **Security** | 11 | Secrets in git, SAST, .gitignore, .env permissions, Docker security, client-side keys, incident response |
 | 1 | **Foundation** | 5 | CLAUDE.md, dependency manifest, build scripts, project structure, dep freshness |
 | 2 | **Quality Gates** | 11 | Linter, PostToolUse/PreToolUse hooks, pre-commit, CI, error handling, types, coverage |
-| 3 | **Intelligence** | 2 | Agent trio (code-reviewer, debugger, architect), domain rules with paths |
+| 3 | **Intelligence** | 2 | Agent trio (code-reviewer, debugger, architect), domain rules with `paths:` |
 | 4 | **Context** | 5 | MCP servers, plugins (context7, episodic-memory), memory files, SessionStart hook |
 | 5 | **DX** | 7 | Skills (/test, /status), hook installer, Dependabot, stop hook, unit & smoke tests |
+
+### Severity Levels
+
+The key question: **"Can a real user be harmed by this?"**
+
+| Level | Meaning | Example |
+|:------|:--------|:--------|
+| :red_circle: **Critical** | Breach risk, data loss | Secrets in git history, `.env` world-readable |
+| :orange_circle: **Important** | Code quality, team burden | No pre-commit hooks, no CI |
+| :yellow_circle: **Medium** | Nice-to-have improvement | Missing Dependabot, no smoke tests |
+| :large_blue_circle: **Minor** | Cosmetic or context-dependent | Missing stop hook, no SessionStart |
+
+### Scoring
+
+```
+90%+ = EXCELLENT    Your project is production-ready
+70-89% = GOOD       Solid foundation, a few gaps
+50-69% = MEDIUM     Needs work — security or quality gaps
+<50% = POOR         Significant risks — start with Layer 0
+```
+
+## Example Output
+
+### Project Profile (Phase 1)
+
+Before any checks, Doctor profiles your entire project:
+
+```
+Project Profile
+  Stack:        Python 3.12 / asyncio / PostgreSQL
+  Entry Point:  src/main.py
+  Test Runner:  pytest, 1089 tests
+  Linter:       ruff check + ruff format
+  CI/CD:        GitHub Actions
+  Deploy:       Railway (Docker)
+```
+
+### Finding Format (Phase 3)
+
+Every finding follows the same structure — severity, command, reason, source:
+
+```
+🔴 chmod 600 .env .mcp.json
+   Secrets are world-readable (644). Any process on the machine can read them.
+   → https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html
+
+🟠 Added *.pem *.key *.p12 to .gitignore
+   git add . will push private keys to remote. Once in history, removing is painful.
+   → https://docs.github.com/en/authentication/keeping-your-account-and-data-secure
+
+🟡 Created scripts/pre-push.sh
+   Without pre-push hook, broken code reaches remote. CI catches it 5 min later — too late.
+   → https://google.github.io/eng-practices/review/
+```
+
+No vague "consider improving security." Every fix has a concrete command, a reason, and a source.
 
 ## Installation
 
@@ -140,6 +204,13 @@ No configuration, API keys, or build step required.
 /doctor fix          # Prescribe + apply fixes (phases 3-4)
 /doctor layer 0      # Security audit only
 /doctor verify       # Health check after fixes (phase 5)
+
+# Or in natural language:
+"audit my project"
+"check security"
+"what's missing in my setup?"
+"проверь проект"
+"аудит безопасности"
 ```
 
 ## How It Works
@@ -163,28 +234,81 @@ Phase 5: VERIFY       Run tests, linter, check hooks
 
 ### Auto-Discovery (DCI)
 
-Doctor automatically detects your stack at startup via Dynamic Context Injection:
+Doctor automatically detects your stack at startup via Dynamic Context Injection — live shell commands that scan for actual project files:
 
 ```
 package.json / requirements.txt / Cargo.toml    → stack detection
-Makefile / justfile                               → build system
+Makefile / justfile / taskfile.yml               → build system
 .claude/ / .mcp.json                              → Claude Code setup
 Dockerfile / docker-compose.yml                   → containerization
-.github/workflows/                                → CI/CD
+.github/workflows/ / .gitlab-ci.yml               → CI/CD
 ```
 
 No configuration needed. Works with 20+ stacks out of the box.
 
 ### Built-in Guardrails
 
-- **Error Recovery** — handles missing git, no tests, no Docker, context overflow
-- **Self-Check** — validates findings before output (no inflated severity, no duplicates)
-- **False Positives** — won't flag missing CI in hobby projects, `print()` in CLI scripts, etc.
-- **Definition of Done** — audit isn't complete until all layers scored and user asked about fixes
+<table>
+<tr>
+<td width="50%" valign="top">
+
+#### Self-Check (7 points)
+Before showing results, Doctor validates:
+1. Every finding has a WHY?
+2. Severity matches reality?
+3. No duplicate findings?
+4. Fixes are project-specific?
+5. Score calculated correctly?
+6. N/A checks excluded from score?
+7. Sources exist for all claims?
+
+</td>
+<td width="50%" valign="top">
+
+#### False Positive Filtering
+Doctor **won't flag**:
+- Missing CI in hobby projects
+- `print()` in CLI scripts
+- No Docker for Vercel/serverless
+- `.env` 644 on personal Mac (single user)
+- Missing MCP if Claude Code not used
+- Missing Dependabot if using Nix/Guix
+- Missing pre-push if CI runs tests
+
+</td>
+</tr>
+</table>
+
+#### Error Recovery
+
+| Scenario | What Doctor Does |
+|:---------|:-----------------|
+| No git repo | Skips git checks, continues with rest |
+| No tests | Flags it, doesn't crash |
+| No Docker | Skips Docker checks |
+| Context overflow | Suggests `/doctor layer <N>` one at a time |
+| Check command fails | Logs error, continues with next check |
+| Missing tool (ruff, eslint) | Recommends install, doesn't block |
+
+### Incident Response
+
+If Doctor finds secrets in git history, it provides a **9-step recovery plan**:
+
+1. Rotate all exposed credentials immediately
+2. Run `git filter-repo` to purge history
+3. Force-push cleaned history
+4. Invalidate all active sessions
+5. Check audit logs for unauthorized access
+6. Set up gitleaks pre-commit hook
+7. Add CI-level secret scanning
+8. Enable GitHub secret scanning
+9. Document the incident
+
+Not just "you have a problem" — a complete action plan.
 
 ## Multi-Stack Support
 
-Doctor adapts to whatever stack it finds:
+Doctor adapts checks, linters, formatters, and SAST tools to whatever stack it finds:
 
 | Stack | Linter | Formatter | Test Runner | SAST |
 |:------|:-------|:----------|:------------|:-----|
@@ -196,6 +320,36 @@ Doctor adapts to whatever stack it finds:
 | Ruby | rubocop | rubocop | rspec | brakeman |
 | Java | checkstyle | google-java-format | JUnit | SpotBugs |
 | PHP | phpstan | php-cs-fixer | PHPUnit | psalm |
+
+Also detects: C/C++, C#, Swift, Kotlin, Scala, Haskell, Elixir, Dart/Flutter, Zig, and more. Build systems: Make, just, npm scripts, Cargo, go mod, Maven, Gradle, Composer, mix, pub, CMake, sbt, cabal, and others.
+
+## Key Design Decisions
+
+### "Project-specific, not templates"
+
+Every fix Doctor generates is tailored to **your** project. A pre-commit hook for a Python/ruff project looks different from one for a TypeScript/eslint project. Doctor reads your actual config files and generates accordingly.
+
+### "Investigate before judging"
+
+Doctor profiles your project (Phase 1) before running any checks (Phase 2). It knows your stack, your test runner, your CI system. Checks that don't apply to your setup are marked N/A and excluded from scoring.
+
+### "Anti-pattern awareness"
+
+Each layer knows specific anti-patterns to avoid:
+- **Foundation**: Generic CLAUDE.md rules, code style in markdown
+- **Intelligence**: Domain rules without `paths:` waste context
+- **Quality**: `except:` without error type = silent failures
+- **Context**: Rules >50 lines = Claude ignores them
+
+### "Completion criteria"
+
+An audit isn't done until:
+- All 6 layers checked (or marked N/A)
+- Each layer has X/Y score
+- Total score calculated with grade
+- Each finding has severity + why + source
+- Concrete fix commands proposed
+- User asked "all at once or one by one?"
 
 ## Repository Structure
 
@@ -227,6 +381,7 @@ One skill. No build step. No dependencies. Install and use.
 |:------|:------|:----|
 | Skill not triggered | File missing or wrong path | Verify `.claude/skills/doctor/SKILL.md` exists |
 | Audit is too slow | Very large project | Use `/doctor layer <N>` to audit one layer at a time |
+| Context overflow | Too many files to check | Use `/doctor layer <N>` — audit layers individually |
 | False positive | Rule doesn't match your setup | Say "this is intentional" — Doctor skips it |
 | No output | Older Claude Code version | Run `claude --version` and update to latest |
 
