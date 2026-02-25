@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/logo.svg" alt="Doctor logo" width="120" height="120">
+
 # Doctor
 
 **42 automated checks across 6 layers. Security first.**
