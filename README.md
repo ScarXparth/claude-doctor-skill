@@ -17,6 +17,8 @@
 
 [What It Does](#what-it-does) · [6 Layers](#6-layers-42-checks) · [Install](#installation) · [Usage](#usage) · [How It Works](#how-it-works) · [Example Output](#example-output) · [Multi-Stack](#multi-stack-support)
 
+Just `.md` files — install in 5 seconds:
+
 ```bash
 curl -sSL https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/install.sh | bash
 ```
@@ -164,11 +166,15 @@ No vague "consider improving security." Every fix has a concrete command, a reas
 
 ## Installation
 
+Doctor is just `.md` files — no binaries, no plugins, no API keys. Drop them into `.claude/skills/doctor/` and Claude Code picks up the `/doctor` command automatically.
+
 ### Option A: One command (recommended)
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/install.sh | bash
 ```
+
+The installer downloads 9 `.md` files into `.claude/skills/doctor/` and verifies each one.
 
 ### Option B: Manual
 
@@ -193,7 +199,7 @@ done
 ls .claude/skills/doctor/SKILL.md && echo "Doctor installed"
 ```
 
-No configuration, API keys, or build step required.
+That's it. No build step, no configuration. Claude Code reads `.claude/skills/` automatically — the `/doctor` command is ready to use.
 
 > **Requirements:** [Claude Code](https://docs.anthropic.com/en/docs/claude-code/) CLI installed and a project directory with source code.
 
