@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" width="800" height="200">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+    .title { font-family: 'JetBrains Mono', 'SF Mono', monospace; font-weight: 700; font-size: 48px; fill: #f8f8f2; }
+    .subtitle { font-family: 'JetBrains Mono', 'SF Mono', monospace; font-weight: 400; font-size: 16px; fill: #6272a4; }
+    .accent { fill: #bd93f9; }
+    .green { fill: #50fa7b; }
+    .tag { font-family: 'JetBrains Mono', 'SF Mono', monospace; font-size: 12px; fill: #282a36; font-weight: 700; }
+  </style>
+  <!-- Background -->
+  <rect width="800" height="200" rx="12" fill="#282a36"/>
+  <rect x="1" y="1" width="798" height="198" rx="11" fill="none" stroke="#44475a" stroke-width="1"/>
+
+  <!-- Logo (inline stethoscope-bracket) -->
+  <g transform="translate(40, 30) scale(1.15)">
+    <circle cx="60" cy="60" r="50" fill="#21222c" stroke="#44475a" stroke-width="1.5"/>
+    <path d="M 48 30 C 37 30, 30 39, 30 50 C 30 55, 33 59, 38 59 C 33 59, 30 63, 30 68 C 30 79, 37 88, 48 88"
+          fill="none" stroke="#bd93f9" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M 72 30 C 83 30, 90 39, 90 50 C 90 55, 87 59, 82 59 C 87 59, 90 63, 90 68 C 90 79, 83 88, 72 88"
+          fill="none" stroke="#bd93f9" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="60" cy="59" r="9" fill="none" stroke="#50fa7b" stroke-width="2.5"/>
+    <circle cx="60" cy="59" r="3.5" fill="#50fa7b"/>
+    <polyline points="46,59 53,59 56,52 59,66 62,54 65,64 68,59 74,59"
+              fill="none" stroke="#ff79c6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Title -->
+  <text x="210" y="90" class="title">Doctor</text>
+  <!-- Subtitle -->
+  <text x="210" y="122" class="subtitle">Project Automation Audit for Claude Code</text>
+
+  <!-- Tags -->
+  <g transform="translate(210, 140)">
+    <rect width="78" height="22" rx="4" fill="#bd93f9"/>
+    <text x="39" y="15" text-anchor="middle" class="tag">42 Checks</text>
+
+    <rect x="86" width="68" height="22" rx="4" fill="#ffb86c"/>
+    <text x="120" y="15" text-anchor="middle" class="tag">6 Layers</text>
+
+    <rect x="162" width="76" height="22" rx="4" fill="#50fa7b"/>
+    <text x="200" y="15" text-anchor="middle" class="tag">20+ Stacks</text>
+
+    <rect x="246" width="100" height="22" rx="4" fill="#8be9fd"/>
+    <text x="296" y="15" text-anchor="middle" class="tag">Zero Deps</text>
+  </g>
+
+  <!-- Decorative dots (top-right) -->
+  <circle cx="720" cy="40" r="3" fill="#ff5555" opacity="0.6"/>
+  <circle cx="740" cy="40" r="3" fill="#f1fa8c" opacity="0.6"/>
+  <circle cx="760" cy="40" r="3" fill="#50fa7b" opacity="0.6"/>
+</svg>

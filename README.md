@@ -1,15 +1,21 @@
-# Doctor — Project Automation Audit Skill for Claude Code
+<p align="center">
+  <img src="assets/header.svg" alt="Doctor — Project Automation Audit for Claude Code" width="800"/>
+</p>
 
-[![Claude Code Skill](https://img.shields.io/badge/Claude_Code-Skill-7C3AED?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyek0xMiAyMGMtNC40MiAwLTgtMy41OC04LThzMy41OC04IDgtOCA4IDMuNTggOCA4LTMuNTggOC04IDh6Ii8+PC9zdmc+)](https://docs.anthropic.com/en/docs/claude-code/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![42 Checks](https://img.shields.io/badge/Checks-42-blue.svg)](#6-layers-42-checks)
-[![6 Layers](https://img.shields.io/badge/Layers-6-orange.svg)](#6-layers-42-checks)
-[![20+ Stacks](https://img.shields.io/badge/Stacks-20+-teal.svg)](#multi-stack-support)
-[![Zero Dependencies](https://img.shields.io/badge/Dependencies-Zero-brightgreen.svg)](#requirements)
-[![Telegram](https://img.shields.io/badge/Telegram-Channel-26A5E4?logo=telegram)](https://t.me/codeonvibes)
+<p align="center">
+  <a href="https://docs.anthropic.com/en/docs/claude-code/"><img src="https://img.shields.io/badge/Claude_Code-Skill-7C3AED?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyek0xMiAyMGMtNC40MiAwLTgtMy41OC04LThzMy41OC04IDgtOCA4IDMuNTggOCA4LTMuNTggOC04IDh6Ii8+PC9zdmc+" alt="Claude Code Skill"/></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License"/></a>
+  <a href="#6-layers-42-checks"><img src="https://img.shields.io/badge/Checks-42-blue.svg" alt="42 Checks"/></a>
+  <a href="#6-layers-42-checks"><img src="https://img.shields.io/badge/Layers-6-orange.svg" alt="6 Layers"/></a>
+  <a href="#multi-stack-support"><img src="https://img.shields.io/badge/Stacks-20+-teal.svg" alt="20+ Stacks"/></a>
+  <a href="#requirements"><img src="https://img.shields.io/badge/Dependencies-Zero-brightgreen.svg" alt="Zero Dependencies"/></a>
+  <a href="https://t.me/codeonvibes"><img src="https://img.shields.io/badge/Telegram-Channel-26A5E4?logo=telegram" alt="Telegram"/></a>
+</p>
 
-> **42 automated checks across 6 layers. Security first.**
-> For [Claude Code](https://docs.anthropic.com/en/docs/claude-code/) CLI.
+<p align="center">
+  <b>42 automated checks across 6 layers. Security first.</b><br/>
+  For <a href="https://docs.anthropic.com/en/docs/claude-code/">Claude Code</a> CLI.
+</p>
 
 ---
 
@@ -21,11 +27,11 @@ Every finding explains **WHY** it matters, with a source link.
 
 ### `/doctor scan` — Diagnose
 
-<img src="assets/demo-scan.gif" alt="doctor scan demo" width="800"/>
+<img src="assets/demo-scan.svg" alt="doctor scan demo" width="800"/>
 
 ### `/doctor fix` — Prescribe + Apply
 
-<img src="assets/demo-fix.gif" alt="doctor fix demo" width="800"/>
+<img src="assets/demo-fix.svg" alt="doctor fix demo" width="800"/>
 
 ---
 
@@ -57,14 +63,20 @@ mkdir -p .claude/skills/doctor/layers
 cd .claude/skills/doctor
 
 # Main files
-curl -O https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/SKILL.md
-curl -O https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/CHECKLIST.md
+curl -sO https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/SKILL.md
+curl -sO https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/CHECKLIST.md
 
 # Layer details
 cd layers
 for f in SECURITY FOUNDATION QUALITY QUALITY-EXTRA INTELLIGENCE CONTEXT DX; do
-  curl -O "https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/layers/$f.md"
+  curl -sO "https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/layers/$f.md"
 done
+```
+
+**Verify installation:**
+
+```bash
+ls .claude/skills/doctor/SKILL.md && echo "Doctor installed"
 ```
 
 ---
@@ -171,7 +183,13 @@ claude-doctor-skill/
     INTELLIGENCE.md  — Layer 3: 2 agent intelligence checks
     CONTEXT.md       — Layer 4: 5 context & memory checks
     DX.md            — Layer 5: 7 developer experience checks
-  install.sh         — One-line installer
+  assets/
+    logo.svg         — Doctor logo (stethoscope + code brackets)
+    header.svg       — README header banner
+    demo-scan.svg    — Animated demo: /doctor scan
+    demo-fix.svg     — Animated demo: /doctor fix
+    demo.svg         — Static health report preview
+  install.sh         — One-line installer with verification
 ```
 
 ---
