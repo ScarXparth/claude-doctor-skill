@@ -140,7 +140,7 @@ if [ "$manifest_found" = false ]; then
       globs="${entry%%|*}"; hint="${entry#*|}"
       count=0
       for g in $globs; do
-        c=$(find $src_dirs -name "$g" 2>/dev/null | wc -l | tr -d ' ')
+        c=$(find "$src_dirs" -name "$g" 2>/dev/null | wc -l | tr -d ' ')
         count=$((count + c))
       done
       [ "$count" -gt 0 ] && echo "     → Создай: $hint"

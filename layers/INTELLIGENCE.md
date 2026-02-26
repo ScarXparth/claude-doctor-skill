@@ -152,7 +152,7 @@ if [ -d "$rules_dir" ]; then
 
   if [ -n "$src_dirs" ]; then
     # Async-проект?
-    if grep -rq "async" $src_dirs 2>/dev/null; then
+    if grep -rq "async" "$src_dirs" 2>/dev/null; then
       if [ -f "$rules_dir/python-async.md" ] || [ -f "$rules_dir/async.md" ]; then
         echo "  ✅ async-правила"
       else
@@ -170,21 +170,21 @@ if [ -d "$rules_dir" ]; then
     fi
 
     # Фреймворк-специфичные? (определение популярных фреймворков)
-    if grep -rq "telegram" $src_dirs 2>/dev/null; then
+    if grep -rq "telegram" "$src_dirs" 2>/dev/null; then
       if [ -f "$rules_dir/telegram-bot.md" ] || [ -f "$rules_dir/telegram.md" ]; then
         echo "  ✅ telegram-правила"
       else
         echo "  ⚠️ ОТСУТСТВУЕТ: telegram-правила"
       fi
     fi
-    if grep -rqE "from (fastapi|flask|django)" $src_dirs 2>/dev/null; then
+    if grep -rqE "from (fastapi|flask|django)" "$src_dirs" 2>/dev/null; then
       if [ -f "$rules_dir/api.md" ] || [ -f "$rules_dir/web.md" ]; then
         echo "  ✅ правила web-фреймворка"
       else
         echo "  ⚠️ ОТСУТСТВУЕТ: правила web-фреймворка (проект использует web framework)"
       fi
     fi
-    if grep -rqE "from (react|next|vue)" $src_dirs 2>/dev/null; then
+    if grep -rqE "from (react|next|vue)" "$src_dirs" 2>/dev/null; then
       if [ -f "$rules_dir/frontend.md" ]; then
         echo "  ✅ frontend-правила"
       else

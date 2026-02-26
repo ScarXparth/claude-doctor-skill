@@ -205,6 +205,7 @@ API:           [напр. OpenAI, Stripe, S3]
 3. Проверь ТОЛЬКО `[core]` чеки (17 штук) — без подробных команд
 4. Выведи:
 
+<!-- Layers 3-4 (Intelligence, Context) have 0 [core] checks — not shown in quick mode -->
 ```
 БЫСТРЫЙ АУДИТ (Growing 🌿)
 ════════════════════════════
@@ -246,5 +247,4 @@ Core скор: 14/17 (82%)
 - Выводи всё на языке юзера (русский или английский)
 
 ## Источники
-
 > Полный список → [GUARDRAILS.md](GUARDRAILS.md)

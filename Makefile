@@ -9,7 +9,10 @@ FILES = SKILL.md GUARDRAILS.md CHECKLIST.md \
         layers/DX.md layers/DX-EXTRA.md \
         layers/MATURITY.md
 
-.PHONY: check lines lint
+.PHONY: help check lines lint
+
+help: ## Show available targets
+	@grep -E '^[a-z]+:.*##' $(MAKEFILE_LIST) | sed 's/:.*## /\t/' | column -ts '	'
 
 check: ## Verify all files exist and are non-empty
 	@echo "=== File Check ==="

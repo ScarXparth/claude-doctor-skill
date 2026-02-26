@@ -49,7 +49,7 @@ if [ -n "$src_dirs" ]; then
   # DB detection
   db_found=false
   grep -rq "DATABASE_URL" .env.example 2>/dev/null && db_found=true
-  grep -rqE "asyncpg|psycopg|prisma" $src_dirs 2>/dev/null && db_found=true
+  grep -rqE "asyncpg|psycopg|prisma" "$src_dirs" 2>/dev/null && db_found=true
   if [ "$db_found" = true ]; then
     if grep -q "postgres" .mcp.json 2>/dev/null; then
       echo "  ✅ postgres MCP (проект использует PostgreSQL)"
@@ -60,7 +60,7 @@ if [ -n "$src_dirs" ]; then
   # Large codebase?
   file_count=0
   for ext in py ts js go rs; do
-    cnt=$(find $src_dirs -name "*.$ext" 2>/dev/null | wc -l | tr -d ' ')
+    cnt=$(find "$src_dirs" -name "*.$ext" 2>/dev/null | wc -l | tr -d ' ')
     file_count=$((file_count + cnt))
   done
   if [ "$file_count" -gt 20 ]; then

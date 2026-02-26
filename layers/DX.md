@@ -199,7 +199,7 @@ if [ -n "$test_dir" ] && [ -n "$src_dirs" ]; then
   echo "=== Test coverage ==="
   missing=0
   total=0
-  for f in $(find $src_dirs -name "*.py" ! -name "__init__.py" ! -path "*__pycache__*" 2>/dev/null); do
+  for f in $(find "$src_dirs" -name "*.py" ! -name "__init__.py" ! -path "*__pycache__*" 2>/dev/null); do
     base=$(basename "$f" .py)
     total=$((total + 1))
     if ! find "$test_dir" -name "*${base}*" -name "*.py" 2>/dev/null | grep -q .; then
@@ -216,11 +216,11 @@ fi
 
 # Coverage ratio (TypeScript/JavaScript):
 if [ -n "$test_dir" ] && [ -n "$src_dirs" ]; then
-  ts_files=$(find $src_dirs -name "*.ts" -not -name "*.test.*" -not -name "*.spec.*" -not -name "*.d.ts" 2>/dev/null | wc -l | tr -d ' ')
+  ts_files=$(find "$src_dirs" -name "*.ts" -not -name "*.test.*" -not -name "*.spec.*" -not -name "*.d.ts" 2>/dev/null | wc -l | tr -d ' ')
   if [ "$ts_files" -gt 0 ]; then
     echo "=== TypeScript test coverage ==="
     ts_missing=0
-    for f in $(find $src_dirs -name "*.ts" -not -name "*.test.*" -not -name "*.spec.*" -not -name "*.d.ts" 2>/dev/null); do
+    for f in $(find "$src_dirs" -name "*.ts" -not -name "*.test.*" -not -name "*.spec.*" -not -name "*.d.ts" 2>/dev/null); do
       base=$(basename "$f" .ts)
       if ! find . -name "${base}.test.ts" -o -name "${base}.spec.ts" 2>/dev/null | grep -q .; then
         echo "  ⚠️ MISSING tests: $f"

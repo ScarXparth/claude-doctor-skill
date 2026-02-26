@@ -289,7 +289,7 @@ if [ -f requirements.txt ] || [ -f pyproject.toml ]; then
   src_dirs=""
   for d in bot src app lib; do [ -d "$d" ] && src_dirs="$src_dirs $d"; done
   if [ -n "$src_dirs" ]; then
-    bare_all=$(grep -rn "^[[:space:]]*except:" --include="*.py" $src_dirs 2>/dev/null)
+    bare_all=$(grep -rn "^[[:space:]]*except:" --include="*.py" "$src_dirs" 2>/dev/null)
     bare_count=$(echo "$bare_all" | grep -v "^$" | wc -l | tr -d ' ')
     if [ "$bare_count" -gt 0 ]; then
       echo "  🟠 $bare_count bare 'except:' (проглатывают ВСЕ ошибки):"
@@ -298,7 +298,7 @@ if [ -f requirements.txt ] || [ -f pyproject.toml ]; then
     else
       echo "  ✅ No bare except statements"
     fi
-    pass_count=$(grep -rn -A1 "except" --include="*.py" $src_dirs 2>/dev/null | grep -c "pass" | tr -d ' ')
+    pass_count=$(grep -rn -A1 "except" --include="*.py" "$src_dirs" 2>/dev/null | grep -c "pass" | tr -d ' ')
     [ "$pass_count" -gt 3 ] && echo "  ⚠️ $pass_count 'except ... pass' blocks — ошибки проглатываются молча"
   fi
   # Check ruff E722:
@@ -314,7 +314,7 @@ if [ -f package.json ]; then
   src_dirs=""
   for d in src app lib; do [ -d "$d" ] && src_dirs="$src_dirs $d"; done
   if [ -n "$src_dirs" ]; then
-    empty_catch=$(grep -rn "catch.*{}" --include="*.ts" --include="*.js" $src_dirs 2>/dev/null | wc -l | tr -d ' ')
+    empty_catch=$(grep -rn "catch.*{}" --include="*.ts" --include="*.js" "$src_dirs" 2>/dev/null | wc -l | tr -d ' ')
     [ "$empty_catch" -gt 0 ] && echo "  🟠 $empty_catch empty catch blocks (ошибки проглатываются)" || echo "  ✅ No empty catch blocks"
   fi
 fi

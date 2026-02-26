@@ -95,8 +95,8 @@ if [ -f requirements.txt ] || [ -f pyproject.toml ]; then
   src_dirs=""
   for d in bot src app lib; do [ -d "$d" ] && src_dirs="$src_dirs $d"; done
   if [ -n "$src_dirs" ]; then
-    total=$(grep -rn "def " --include="*.py" $src_dirs 2>/dev/null | wc -l | tr -d ' ')
-    typed=$(grep -rn "def .*->.*:" --include="*.py" $src_dirs 2>/dev/null | wc -l | tr -d ' ')
+    total=$(grep -rn "def " --include="*.py" "$src_dirs" 2>/dev/null | wc -l | tr -d ' ')
+    typed=$(grep -rn "def .*->.*:" --include="*.py" "$src_dirs" 2>/dev/null | wc -l | tr -d ' ')
     [ "$total" -gt 0 ] && { pct=$((typed*100/total)); echo "  📊 Annotations: $typed/$total ($pct%)"; [ "$pct" -lt 30 ] && echo "     ⚠️ Мало аннотаций"; }
   fi
 fi
@@ -226,10 +226,10 @@ if [ -f requirements.txt ] || [ -f pyproject.toml ]; then
     [ -d "$d" ] && src_dirs="$src_dirs $d"
   done
   if [ -n "$src_dirs" ]; then
-    print_count=$(grep -rn "^\s*print(" --include="*.py" $src_dirs 2>/dev/null | grep -v "#" | grep -v "test" | wc -l | tr -d ' ')
+    print_count=$(grep -rn "^\s*print(" --include="*.py" "$src_dirs" 2>/dev/null | grep -v "#" | grep -v "test" | wc -l | tr -d ' ')
     if [ "$print_count" -gt 5 ]; then
       echo "  🟠 $print_count print() statements in production code"
-      grep -rn "^\s*print(" --include="*.py" $src_dirs 2>/dev/null | grep -v "#" | grep -v "test" | head -5 | while read -r line; do
+      grep -rn "^\s*print(" --include="*.py" "$src_dirs" 2>/dev/null | grep -v "#" | grep -v "test" | head -5 | while read -r line; do
         echo "     $line"
       done
       echo "     → Замени на logging.info()/logging.debug()"
@@ -240,7 +240,7 @@ if [ -f requirements.txt ] || [ -f pyproject.toml ]; then
     fi
 
     # Check logging is configured:
-    if grep -rq "import logging" --include="*.py" $src_dirs 2>/dev/null; then
+    if grep -rq "import logging" --include="*.py" "$src_dirs" 2>/dev/null; then
       echo "  ✅ logging module used"
     else
       echo "  ⚠️ logging module not imported — возможно весь вывод через print()"
@@ -255,7 +255,7 @@ if [ -f package.json ]; then
     [ -d "$d" ] && src_dirs="$src_dirs $d"
   done
   if [ -n "$src_dirs" ]; then
-    console_count=$(grep -rn "console\.\(log\|info\|warn\|error\)" --include="*.ts" --include="*.js" $src_dirs 2>/dev/null | grep -v "test" | grep -v "spec" | wc -l | tr -d ' ')
+    console_count=$(grep -rn "console\.\(log\|info\|warn\|error\)" --include="*.ts" --include="*.js" "$src_dirs" 2>/dev/null | grep -v "test" | grep -v "spec" | wc -l | tr -d ' ')
     if [ "$console_count" -gt 10 ]; then
       echo "  🟠 $console_count console.* calls in production code"
       echo "     → Используй winston/pino вместо console.log"

@@ -223,7 +223,7 @@ Doctor is just `.md` files — no binaries, no plugins, no API keys. Drop them i
 curl -sSL https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/install.sh | bash
 ```
 
-The installer downloads 10 `.md` files into `.claude/skills/doctor/` and verifies each one.
+The installer downloads 13 `.md` files into `.claude/skills/doctor/` and verifies each one.
 
 > Want to inspect the script first? [View install.sh on GitHub](https://github.com/SomeStay07/claude-doctor-skill/blob/main/install.sh) — it only creates a directory and downloads `.md` files.
 
@@ -235,11 +235,12 @@ cd .claude/skills/doctor
 
 # Main files
 curl -sO https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/SKILL.md
+curl -sO https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/GUARDRAILS.md
 curl -sO https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/CHECKLIST.md
 
 # Layer details
 cd layers
-for f in SECURITY FOUNDATION QUALITY QUALITY-EXTRA INTELLIGENCE CONTEXT DX MATURITY; do
+for f in SECURITY SECURITY-EXTRA FOUNDATION QUALITY QUALITY-EXTRA INTELLIGENCE CONTEXT DX DX-EXTRA MATURITY; do
   curl -sO "https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/layers/$f.md"
 done
 ```

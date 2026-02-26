@@ -39,6 +39,7 @@ for file in SKILL.md GUARDRAILS.md CHECKLIST.md; do
     echo -e ""
     echo -e "  ${RED}${BOLD}Installation failed.${NC} Check your internet connection."
     echo -e "  Repo: https://github.com/SomeStay07/claude-doctor-skill"
+    echo -e "  ${YELLOW}Try manual install: https://github.com/SomeStay07/claude-doctor-skill#option-b-manual${NC}"
     exit 1
   fi
 done
