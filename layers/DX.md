@@ -136,7 +136,7 @@ for h in data.get('hooks', {}).get('Stop', []):
             parts = shlex.split(cmd)
             print(parts[-1] if len(parts) > 1 else cmd)
 " "$stop_settings" 2>/dev/null | while read -r script_path; do
-    resolved=$(echo "$script_path" | sed "s|\\\$CLAUDE_PROJECT_DIR|$PWD|g")
+    resolved=$(echo "$script_path" | sed "s|\\\$CLAUDE_PROJECT_DIR|$PWD|g" | tr -d '"'"'")
     if [ -f "$resolved" ]; then
       echo "     script: $(basename "$resolved")"
       grep -q "porcelain" "$resolved" 2>/dev/null && echo "     uncommitted check: ✅" || echo "     uncommitted check: ⚠️ missing"
@@ -193,7 +193,7 @@ fi
 
 # Find source directories:
 src_dirs=""
-for d in src app lib bot server backend api core pkg cmd internal services packages; do
+for d in src app apps lib bot server backend api core pkg cmd internal services packages; do
   [ -d "$d" ] && src_dirs="${src_dirs:+$src_dirs }$d"
 done
 

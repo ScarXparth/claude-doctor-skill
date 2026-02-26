@@ -91,7 +91,7 @@ if [ -f requirements.txt ] || [ -f pyproject.toml ]; then
 
   # Type annotations:
   src_dirs=""
-  for d in src app lib bot server backend api core pkg cmd internal services packages; do [ -d "$d" ] && src_dirs="${src_dirs:+$src_dirs }$d"; done
+  for d in src app apps lib bot server backend api core pkg cmd internal services packages; do [ -d "$d" ] && src_dirs="${src_dirs:+$src_dirs }$d"; done
   if [ -n "$src_dirs" ]; then
     total=$(grep -rn "def " --include="*.py" $src_dirs 2>/dev/null | wc -l | tr -d ' ')
     typed=$(grep -rn "def .*->.*:" --include="*.py" $src_dirs 2>/dev/null | wc -l | tr -d ' ')
@@ -103,7 +103,7 @@ if [ -f tsconfig.json ]; then
   echo "  ✅ tsconfig.json"
   grep -q '"strict"[[:space:]]*:[[:space:]]*true' tsconfig.json 2>/dev/null && echo "  ✅ strict mode" || echo "  ⚠️ strict mode NOT enabled"
   ts_dirs=""
-  for d in src app lib; do [ -d "$d" ] && ts_dirs="${ts_dirs:+$ts_dirs }$d"; done
+  for d in src app apps lib; do [ -d "$d" ] && ts_dirs="${ts_dirs:+$ts_dirs }$d"; done
   if [ -n "$ts_dirs" ]; then
     any_count=$(grep -rn ": any" --include="*.ts" --include="*.tsx" $ts_dirs 2>/dev/null | grep -v "node_modules" | wc -l | tr -d ' ')
     if [ "$any_count" -gt 10 ]; then echo "  ⚠️ $any_count ': any' uses — типизация обходится"; fi
@@ -224,7 +224,7 @@ echo "=== Production logging ==="
 # Python — print() in source:
 if [ -f requirements.txt ] || [ -f pyproject.toml ]; then
   src_dirs=""
-  for d in src app lib bot server backend api core pkg cmd internal services packages; do
+  for d in src app apps lib bot server backend api core pkg cmd internal services packages; do
     [ -d "$d" ] && src_dirs="${src_dirs:+$src_dirs }$d"
   done
   if [ -n "$src_dirs" ]; then
@@ -253,7 +253,7 @@ fi
 # Node.js — console.log in source:
 if [ -f package.json ]; then
   src_dirs=""
-  for d in src app lib bot server backend api core pkg cmd internal services packages; do
+  for d in src app apps lib bot server backend api core pkg cmd internal services packages; do
     [ -d "$d" ] && src_dirs="${src_dirs:+$src_dirs }$d"
   done
   if [ -n "$src_dirs" ]; then

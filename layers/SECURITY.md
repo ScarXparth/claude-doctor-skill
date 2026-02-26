@@ -234,8 +234,8 @@ gitleaks намного лучше grep — он определяет секре
 # Scan source code for hardcoded secrets (string assignments 8+ chars):
 grep -rn -E "(api_key|secret|password|token|bearer|credential|auth_token|private_key)[[:space:]]*[:=][[:space:]]*['\"][A-Za-z0-9+/=_\-]{8,}" \
   --include="*.py" --include="*.ts" --include="*.js" --include="*.go" --include="*.java" --include="*.rb" \
-  --exclude-dir=.venv --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=__pycache__ --exclude-dir=tests --exclude-dir=test --exclude-dir=__tests__ \
-  --exclude="*.test.*" --exclude="*_test.*" --exclude="test_*" --exclude=".env.example" . 2>/dev/null
+  --exclude-dir=.venv --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=__pycache__ --exclude-dir=tests --exclude-dir=test --exclude-dir=__tests__ --exclude-dir=dist --exclude-dir=build --exclude-dir=coverage --exclude-dir=target \
+  --exclude="*.test.*" --exclude="*_test.*" --exclude="test_*" --exclude="*.spec.*" --exclude=".env.example" . 2>/dev/null
 
 # Scan config/infra files:
 grep -rn -E "(password|secret|token|key)[[:space:]]*[:=][[:space:]]*['\"][^$\{][^'\"]{8,}" \

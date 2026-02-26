@@ -119,7 +119,7 @@ fi
 
 if [ "$manifest_found" = false ]; then
   src_dirs=""
-  for d in src app lib bot server backend api core pkg cmd internal services packages Sources; do
+  for d in src app apps lib bot server backend api core pkg cmd internal services packages Sources; do
     [ -d "$d" ] && src_dirs="${src_dirs:+$src_dirs }$d"
   done
   if [ -n "$src_dirs" ]; then
@@ -206,7 +206,7 @@ fi
 # Проверить, что цели реально работают:
 echo "=== Smoke test ==="
 if [[ -f Makefile ]]; then
-  make help 2>&1 | head -3 && echo "  ✅ make help works" || echo "  ⚠️ make help failed"
+  if make help 2>&1 | head -3; then echo "  ✅ make help works"; else echo "  ⚠️ make help failed"; fi
 fi
 ```
 

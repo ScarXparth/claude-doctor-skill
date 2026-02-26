@@ -24,7 +24,7 @@ db_detected=false
 grep -rq "DATABASE_URL" .env.example .env 2>/dev/null && db_detected=true
 
 src_dirs=""
-for d in src app lib bot server backend api core pkg cmd internal services packages; do
+for d in src app apps lib bot server backend api core pkg cmd internal services packages; do
   [ -d "$d" ] && src_dirs="${src_dirs:+$src_dirs }$d"
 done
 
