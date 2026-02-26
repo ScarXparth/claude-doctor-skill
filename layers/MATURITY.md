@@ -57,8 +57,8 @@ if [ -d .github/workflows ] || [ -f .gitlab-ci.yml ] || [ -f .circleci/config.ym
   has_ci=true; maturity_score=$((maturity_score + 1))
 fi
 
-# 6. Env handling
-if [ -f .env.example ]; then
+# 6. Env handling (root or monorepo subdirs)
+if [ -f .env.example ] || find . -maxdepth 3 -name ".env.example" -not -path "*/node_modules/*" 2>/dev/null | grep -q .; then
   has_env=true; maturity_score=$((maturity_score + 1))
 fi
 

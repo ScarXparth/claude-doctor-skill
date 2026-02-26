@@ -93,31 +93,25 @@ Ruff defaults работают для 90% случаев. Конфиг нуже�
 
 ```bash
 echo "=== PostToolUse hook ==="
-# Check in project settings:
-for settings_file in ".claude/settings.json" ".claude/settings.local.json"; do
-  if [ -f "$settings_file" ]; then
-    if grep -q "PostToolUse" "$settings_file" 2>/dev/null; then
-      echo "  ✅ PostToolUse hook in $settings_file"
-      # Check what it does (in settings AND referenced scripts):
-      if grep -qE "Edit|Write" "$settings_file" 2>/dev/null; then
-        echo "     matcher: Edit|Write ✅"
-      fi
-      # Check settings + hook scripts for format & syntax:
-      if grep -ql "format" "$settings_file" .claude/hooks/* 2>/dev/null; then
-        echo "     format: ✅"
-      else
-        echo "     format: ⚠️ no formatting in hook"
-      fi
-      if grep -qlE "py_compile|tsc|--check" "$settings_file" .claude/hooks/* 2>/dev/null; then
-        echo "     syntax check: ✅"
-      else
-        echo "     syntax check: ⚠️ no syntax validation"
-      fi
-    else
-      echo "  ⚠️ No PostToolUse hook in $settings_file"
-    fi
+post_hook_found=false
+for settings_file in .claude/settings.local.json .claude/settings.json; do
+  [ -f "$settings_file" ] || continue
+  if grep -q "PostToolUse" "$settings_file" 2>/dev/null; then
+    post_hook_found=true
+    echo "  ✅ PostToolUse hook in $settings_file"
+    if grep -qE "Edit|Write" "$settings_file" 2>/dev/null; then echo "     matcher: Edit|Write ✅"; fi
+    if grep -ql "format" "$settings_file" .claude/hooks/* 2>/dev/null; then echo "     format: ✅"
+    else echo "     format: ⚠️ no formatting in hook"; fi
+    if grep -qlE "py_compile|tsc|--check" "$settings_file" .claude/hooks/* 2>/dev/null; then echo "     syntax check: ✅"
+    else echo "     syntax check: ⚠️ no syntax validation"; fi
+    break
   fi
 done
+if [ "$post_hook_found" = false ]; then
+  if [ -f .claude/settings.local.json ] || [ -f .claude/settings.json ]; then
+    echo "  ⚠️ No PostToolUse hook"
+  else echo "  ❌ No .claude/settings.json"; fi
+fi
 
 # Check hook script is executable:
 for hook_script in .claude/hooks/*; do
@@ -301,7 +295,7 @@ if [ -f requirements.txt ] || [ -f pyproject.toml ]; then
       echo "  ✅ No bare except statements"
     fi
     pass_count=$(grep -rn -A1 "except" --include="*.py" $src_dirs 2>/dev/null | grep -c "pass" | tr -d ' ')
-    [ "$pass_count" -gt 3 ] && echo "  ⚠️ $pass_count 'except ... pass' blocks — ошибки проглатываются молча"
+    if [ "$pass_count" -gt 3 ]; then echo "  ⚠️ $pass_count 'except ... pass' blocks — ошибки проглатываются молча"; fi
   fi
   # Check ruff E722:
   if [ -f ruff.toml ] || [ -f pyproject.toml ]; then

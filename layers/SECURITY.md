@@ -268,8 +268,11 @@ grep -rn -E "^export[[:space:]]+[A-Z_]*(KEY|SECRET|TOKEN|PASSWORD|CREDENTIAL)[[:
 
 **Команды проверки:**
 ```bash
-# Existence:
-[[ -f .env.example ]] && echo "✅ EXISTS" || echo "❌ MISSING .env.example"
+# Existence (root or monorepo subdirs):
+if [ -f .env.example ]; then echo "✅ EXISTS"
+elif find . -maxdepth 3 -name ".env.example" -not -path "*/node_modules/*" 2>/dev/null | grep -q .; then
+  echo "✅ EXISTS (monorepo)"; find . -maxdepth 3 -name ".env.example" -not -path "*/node_modules/*" 2>/dev/null | while read -r f; do echo "   $f"; done
+else echo "❌ MISSING .env.example"; fi
 
 # Documentation quality (comments vs vars ratio):
 comments=$(grep -c '^#' .env.example 2>/dev/null); comments=${comments:-0}

@@ -1,5 +1,21 @@
 # Changelog
 
+## v2.5.3 — Field Tested Round 4 (5 fixes)
+
+Четвёртый раунд на 3 проектах. Баги всё тоньше — монорепо edge cases и exit code propagation.
+
+### 🟠 Important fixes
+- PostToolUse hook loop без `break` — ложный warning для settings.local.json (QUALITY.md)
+- Monorepo `.env.example` не найден — fallback через `find -maxdepth 3` (SECURITY.md, MATURITY.md)
+- Monorepo `vite.config.*`/`next.config.*` не найдены — `find -maxdepth 3` fallback (SECURITY-EXTRA.md)
+- `src_dirs` subshell duplication в CONTEXT.md 4a — заменён на стандартный паттерн
+
+### 🟡 Minor fixes
+- `[ -gt 3 ] &&` exit code propagation → `if/fi` (QUALITY.md)
+
+### Updated
+- install.sh: version 2.5.3
+
 ## v2.5.2 — Field Tested Round 3 (5 fixes, 10 files)
 
 Третий раунд тестирования на cherry-cast, telegram-crypto-info, telegram-ios-academy.
