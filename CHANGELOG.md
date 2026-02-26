@@ -1,5 +1,23 @@
 # Changelog
 
+## v2.5.2 — Field Tested Round 3 (5 fixes, 10 files)
+
+Третий раунд тестирования на cherry-cast, telegram-crypto-info, telegram-ios-academy.
+
+### 🔴 Critical fixes
+- `apps/` отсутствовал в `src_dirs` — монорепо (Turborepo/NestJS) с `apps/api/`, `apps/bot/` полностью игнорировались (8 файлов, 14 мест)
+
+### 🟠 Important fixes
+- `dist/`, `build/`, `target/`, `coverage/` не исключались из grep scan secrets — false positives из build artifacts (SECURITY.md)
+- `*.spec.*` не исключались — Jest/Vitest тестовые файлы с фейковыми данными давали false positives (SECURITY.md)
+- Stop hook `"$CLAUDE_PROJECT_DIR"` — кавычки оставались в resolved path → `tr -d '"'"'` (DX.md)
+
+### 🟡 Minor fixes
+- `make help | head -3 && echo "works"` — pipe exit code от `head` всегда 0 → `if make help` (FOUNDATION.md)
+
+### Updated
+- install.sh: version 2.5.2
+
 ## v2.5.1 — Field Tested Round 2 (8 fixes)
 
 Повторное тестирование v2.5.0 на тех же 3 проектах выявило 8 дополнительных багов.

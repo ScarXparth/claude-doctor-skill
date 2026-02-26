@@ -147,7 +147,7 @@ if [ -d "$rules_dir" ]; then
 
   # Поиск директорий исходного кода (не захардкожено):
   src_dirs=""
-  for d in src app lib bot server backend api core pkg cmd internal services packages; do
+  for d in src app apps lib bot server backend api core pkg cmd internal services packages; do
     if [ -d "$d" ]; then
       src_dirs="${src_dirs:+$src_dirs }$d"
     fi

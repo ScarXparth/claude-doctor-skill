@@ -289,7 +289,7 @@ echo "=== Error handling ==="
 # Python — bare except:
 if [ -f requirements.txt ] || [ -f pyproject.toml ]; then
   src_dirs=""
-  for d in src app lib bot server backend api core pkg cmd internal services packages; do [ -d "$d" ] && src_dirs="${src_dirs:+$src_dirs }$d"; done
+  for d in src app apps lib bot server backend api core pkg cmd internal services packages; do [ -d "$d" ] && src_dirs="${src_dirs:+$src_dirs }$d"; done
   if [ -n "$src_dirs" ]; then
     bare_all=$(grep -rn "^[[:space:]]*except:" --include="*.py" $src_dirs 2>/dev/null)
     bare_count=$(echo "$bare_all" | grep -v "^$" | wc -l | tr -d ' ')
@@ -314,7 +314,7 @@ fi
 # Node.js — empty catch:
 if [ -f package.json ]; then
   src_dirs=""
-  for d in src app lib bot server backend api core pkg cmd internal services packages; do [ -d "$d" ] && src_dirs="${src_dirs:+$src_dirs }$d"; done
+  for d in src app apps lib bot server backend api core pkg cmd internal services packages; do [ -d "$d" ] && src_dirs="${src_dirs:+$src_dirs }$d"; done
   if [ -n "$src_dirs" ]; then
     empty_catch=$(grep -rn "catch.*{}" --include="*.ts" --include="*.js" $src_dirs 2>/dev/null | wc -l | tr -d ' ')
     [ "$empty_catch" -gt 0 ] && echo "  🟠 $empty_catch empty catch blocks (ошибки проглатываются)" || echo "  ✅ No empty catch blocks"

@@ -46,7 +46,7 @@ fi
 
 # Suggest MCP servers based on stack:
 echo "=== Рекомендации ==="
-src_dirs=$(for d in src app lib bot server backend api core pkg cmd internal services packages; do [ -d "$d" ] && src_dirs="${src_dirs:+$src_dirs }$d"; done; echo "$src_dirs")
+src_dirs=$(for d in src app apps lib bot server backend api core pkg cmd internal services packages; do [ -d "$d" ] && src_dirs="${src_dirs:+$src_dirs }$d"; done; echo "$src_dirs")
 
 if [ -n "$src_dirs" ]; then
   # DB detection

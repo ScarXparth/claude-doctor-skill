@@ -195,7 +195,7 @@ if [ "$ai_api_found" = false ]; then
 else
   # Проверка max_tokens в коде:
   src_dirs=""
-  for d in src app lib bot server backend api core pkg cmd internal services packages; do [ -d "$d" ] && src_dirs="${src_dirs:+$src_dirs }$d"; done
+  for d in src app apps lib bot server backend api core pkg cmd internal services packages; do [ -d "$d" ] && src_dirs="${src_dirs:+$src_dirs }$d"; done
   if [ -n "$src_dirs" ]; then
     api_calls=$(grep -rnE "chat.completions.create|messages.create|generate_content" $src_dirs 2>/dev/null | wc -l | tr -d ' ')
     max_tokens=$(grep -rnE "max_tokens|max_output_tokens|maxOutputTokens" $src_dirs 2>/dev/null | wc -l | tr -d ' ')
@@ -287,7 +287,7 @@ done
 # Self-hosted DB without backup:
 if [ "$db_detected" = false ]; then
   src_dirs=""
-  for d in src app lib bot server backend api core pkg cmd internal services packages; do [ -d "$d" ] && src_dirs="${src_dirs:+$src_dirs }$d"; done
+  for d in src app apps lib bot server backend api core pkg cmd internal services packages; do [ -d "$d" ] && src_dirs="${src_dirs:+$src_dirs }$d"; done
   if [ -n "$src_dirs" ]; then
     grep -rqE "asyncpg|psycopg|prisma|mongoose|sqlalchemy" $src_dirs 2>/dev/null && db_detected=true
   fi
