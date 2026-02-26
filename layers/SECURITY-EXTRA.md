@@ -99,8 +99,8 @@ echo "=== Client-side secrets ==="
 # Check for frontend env prefixes with secret-like names:
 frontend_found=false
 
-# Next.js:
-if [ -f next.config.js ] || [ -f next.config.mjs ] || [ -f next.config.ts ]; then
+# Next.js (root or monorepo):
+if [ -f next.config.js ] || [ -f next.config.mjs ] || [ -f next.config.ts ] || find . -maxdepth 3 -name "next.config.*" 2>/dev/null | grep -q .; then
   frontend_found=true
   leaked=$(grep -rnE "NEXT_PUBLIC_[A-Z_]*(SECRET|KEY|TOKEN|PASSWORD|CREDENTIAL)" .env* 2>/dev/null | grep -v ".env.example")
   if [ -n "$leaked" ]; then
@@ -111,8 +111,8 @@ if [ -f next.config.js ] || [ -f next.config.mjs ] || [ -f next.config.ts ]; the
   fi
 fi
 
-# Vite:
-if [ -f vite.config.ts ] || [ -f vite.config.js ]; then
+# Vite (root or monorepo):
+if [ -f vite.config.ts ] || [ -f vite.config.js ] || find . -maxdepth 3 -name "vite.config.*" 2>/dev/null | grep -q .; then
   frontend_found=true
   leaked=$(grep -rnE "VITE_[A-Z_]*(SECRET|KEY|TOKEN|PASSWORD|CREDENTIAL)" .env* 2>/dev/null | grep -v ".env.example")
   if [ -n "$leaked" ]; then
